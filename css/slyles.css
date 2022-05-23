@@ -128,6 +128,26 @@ img {
   padding: 32px 0 31px;
 }
 
+.current-page {
+  position: relative;
+
+  color: var(--accent-color);
+}
+
+.current-page::after {
+  content: '';
+
+  position: absolute;
+  bottom: -2px;
+
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+
+  background-color: var(--accent-color);
+}
+
 .contacts {
   display: flex;
   align-items: baseline;
@@ -193,6 +213,8 @@ img {
   line-height: 1.88;
   text-align: center;
   letter-spacing: 0.06em;
+
+  cursor: pointer;
 
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -479,6 +501,65 @@ img {
   background-color: var(--accent-color);
 }
 
+/*Modal styles*/
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.2);
+
+  visibility: visible;
+  opacity: 1;
+
+  transition: visibility 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  min-width: 528px;
+  min-height: 581px;
+
+  background-color: var(--primary-bg-color);
+
+  border-radius: 4px;
+  transform: translate(-50%, -50%) scale(1);
+
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  width: 30px;
+  height: 30px;
+
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
 /*Portfolio page*/
 
 /*Filter button*/
@@ -492,13 +573,14 @@ img {
 .filter-btn {
   padding: 6px 22px;
 
-  background-color: var(--secondary-bg-color);
-  color: var(--title-text-color);
   font-weight: 500;
   font-size: 16px;
   line-height: 1.62;
   text-align: center;
   letter-spacing: 0.03em;
+
+  background-color: var(--secondary-bg-color);
+  color: var(--title-text-color);
 
   border-radius: 4px;
   border-width: 0;
@@ -545,25 +627,27 @@ img {
 
 .portfolio-thumb {
   position: relative;
+  overflow: hidden;
 }
 
 .portfolio-link:hover .portfolio-overlay {
-  opacity: 1;
+  /* opacity: 1;*/
+  transform: translateY(0);
 }
 
 .portfolio-overlay {
   position: absolute;
   top: 0;
   left: 0;
+  transform: translateY(100%);
 
   width: 100%;
   height: 100%;
   padding: 63px 24px;
 
   background-color: rgba(33, 150, 243, 0.9);
-  opacity: 0;
-
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  /*opacity: 0;*/
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .full-description-text {
